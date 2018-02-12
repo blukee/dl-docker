@@ -190,6 +190,16 @@ RUN git clone https://github.com/torch/distro.git /root/torch --recursive && \
 	cd /root/torch && \
 	bash install-deps && \
 	yes no | ./install.sh
+	
+# Install pytorch
+RUN cd ~ \
+	git clone --recursive https://github.com/pytorch/pytorch && cd pytorch \
+	pip install --upgrade pip \
+	sudo -E add-apt-repository -y ppa:george-edison55/cmake-3.x \
+	sudo -E apt-get update \
+	sudo apt-get install cmake \
+	install numpy pyyaml mkl setuptools cmake cffi \
+	
 
 # Export the LUA evironment variables manually
 ENV LUA_PATH='/root/.luarocks/share/lua/5.1/?.lua;/root/.luarocks/share/lua/5.1/?/init.lua;/root/torch/install/share/lua/5.1/?.lua;/root/torch/install/share/lua/5.1/?/init.lua;./?.lua;/root/torch/install/share/luajit-2.1.0-beta1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua' \
